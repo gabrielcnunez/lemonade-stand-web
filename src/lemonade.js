@@ -37,6 +37,7 @@ const render = ({ lemonJuice, water, sugar, ice }) => {
     "transform",
     `translate(0, ${calcPercent(sugar.amount, sugar.max, 40)}%)`
   )
+  $('#iceBox').html(Array(ice.amount).fill(undefined).map(_ => "<img class='ice' src='../img/ice.svg' alt='Ice Cube' />"))
   $("#lemonJuiceValue").html(lemonJuice.amount + " " + lemonJuice.measurement)
   $("#waterValue").html(water.amount + " " + water.measurement)
   $("#sugarValue").html(sugar.amount + " " + sugar.measurement)
