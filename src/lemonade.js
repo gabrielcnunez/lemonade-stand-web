@@ -1,33 +1,71 @@
-let lemonJuiceLabel = document.getElementById("lemonJuiceLabel")
-console.log(lemonJuiceLabel)
-lemonJuiceLabel.innerHTML = "<p> Hello </p>"
-
-const example = (string) => {
-  console.log(string)
+let state = {
+  lemonJuice: {
+    amount: 0,
+    max: 8,
+    measurement: "ounces",
+  },
+  water: {
+    amount: 0,
+    max: 8,
+    measurement: "ounces",
+  },
+  sugar: {
+    amount: 0,
+    max: 12,
+    measurement: "tablespoons",
+  },
+  ice: {
+    amount: 0,
+    max: 15,
+    measurement: "cubes",
+  },
 }
 
-let incrementButtons = $(".increment")[1]
-console.log(incrementButtons)
+const calcPercent = (amount, max, maxFill = 100) =>
+  100 - (amount / max) * maxFill
 
-incrementButtons.addEventListener("click", (event) => {
-  const namedDiv = event.composedPath
-    ? event.composedPath()[2]
-    : event.currentTarget.closest(".row")
-  console.log(namedDiv)
-  switch (namedDiv.getAttribute("name")) {
-    case "lemon-juice":
-      console.log("Lemon Juice Div")
-      break
-    case "water":
-      console.log("Water Div")
-      break
-    case "sugar":
-      console.log("Sugar Div")
-      break
-    case "ice":
-      console.log("Ice Div")
-      break
-    default:
-      console.log("Not sure where you are!")
+const render = ({ lemonJuice, water, sugar, ice }) => {
+  $("#lemonJuice").css(
+    "transform",
+    `translate(0, ${calcPercent(lemonJuice.amount, lemonJuice.max)}%)`
+  )
+  $("#water").css(
+    "transform",
+    `translate(0, ${calcPercent(water.amount, water.max)}%)`
+  )
+  $("#sugar").css(
+    "transform",
+    `translate(0, ${calcPercent(sugar.amount, sugar.max, 40)}%)`
+  )
+  $("#lemonJuiceValue").html(lemonJuice.amount + " " + lemonJuice.measurement)
+  $("#waterValue").html(water.amount + " " + water.measurement)
+  $("#sugarValue").html(sugar.amount + " " + sugar.measurement)
+  $("#iceValue").html(ice.amount + " " + ice.measurement)
+}
+
+render(state)
+
+const updateIngredient = (name, { amount, max, measurement }, calcAmount) => {
+  state = {
+    ...state,
+    [name]: {
+      amount: calcAmount(amount, max),
+      max,
+      measurement,
+    },
   }
+}
+
+$(".increment").click((event) => {
+  updateIngredient(event.target.name, state[event.target.name], (amount, max) =>
+    amount < max ? amount + 1 : amount
+  )
+  render(state)
+})
+
+$(".decrement").click((event) => {
+  updateIngredient(event.target.name, state[event.target.name], (amount) =>
+    amount > 0 ? amount - 1 : amount
+  )
+  render(state)
 })

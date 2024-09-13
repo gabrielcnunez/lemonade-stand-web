@@ -17,48 +17,52 @@
     <div class="container">
       <div class="background">
         <div class="glass-back">
-          <div class="glass-front"></div>
+          <div class="glass-front">
+            <div id="lemonJuice"></div>
+            <div id="water"></div>
+            <div id="sugar"></div>
+          </div>
         </div>
       </div>
       <div class="form-box">
         <div name="lemon-juice" class="row">
           <label id="lemonJuiceLabel">Lemon Juice</label>
           <div class="row">
-            <button class="increment">+</button>
-            <h4>3 ounces</h4>
-            <button class="decrement">-</button>
+            <button name="lemonJuice" class="increment">+</button>
+            <h4 id="lemonJuiceValue">3 ounces</h4>
+            <button name="lemonJuice" class="decrement">-</button>
           </div>
         </div>
         <div name="water" class="row">
           <label>Water</label>
           <div class="row">
-            <button class="increment">+</button>
-            <h4>3 ounces</h4>
-            <button class="decrement">-</button>
+            <button name="water" class="increment">+</button>
+            <h4 id="waterValue">3 ounces</h4>
+            <button name="water" class="decrement">-</button>
           </div>
         </div>
         <div name="sugar" class="row">
           <label>Sugar</label>
           <div class="row">
-            <button class="increment">+</button>
-            <h4>6 tablespoons</h4>
-            <button class="decrement">-</button>
+            <button name="sugar" class="increment">+</button>
+            <h4 id="sugarValue">6 tablespoons</h4>
+            <button name="sugar" class="decrement">-</button>
           </div>
         </div>
         <div name="ice" class="row">
           <label>Ice</label>
           <div class="row">
-            <button class="increment">+</button>
-            <h4>5 cubes</h4>
-            <button class="decrement">-</button>
+            <button name="ice" class="increment">+</button>
+            <h4 id="iceValue">5 cubes</h4>
+            <button name="ice" class="decrement">-</button>
           </div>
         </div>
         <button class="yellow-button">Add to order</button>
       </div>
     </div>
     <script
-      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
-      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
+      integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA="
       crossorigin="anonymous"
     ></script>
     <script src="../src/lemonade.js"></script>
