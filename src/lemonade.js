@@ -1,4 +1,4 @@
-let state = {
+const initialState = {
   lemonJuice: {
     amount: 0,
     max: 8,
@@ -21,6 +21,10 @@ let state = {
   },
 }
 
+let state = initialState
+
+const order = JSON.parse(localStorage.getItem("order"))
+
 const calcPercent = (amount, max, maxFill = 100) =>
   100 - (amount / max) * maxFill
 
@@ -37,7 +41,11 @@ const render = ({ lemonJuice, water, sugar, ice }) => {
     "transform",
     `translate(0, ${calcPercent(sugar.amount, sugar.max, 40)}%)`
   )
-  $('#iceBox').html(Array(ice.amount).fill(undefined).map(_ => "<img class='ice' src='../img/ice.svg' alt='Ice Cube' />"))
+  $("#iceBox").html(
+    Array(ice.amount)
+      .fill(undefined)
+      .map((_) => "<img class='ice' src='../img/ice.svg' alt='Ice Cube' />")
+  )
   $("#lemonJuiceValue").html(lemonJuice.amount + " " + lemonJuice.measurement)
   $("#waterValue").html(water.amount + " " + water.measurement)
   $("#sugarValue").html(sugar.amount + " " + sugar.measurement)
@@ -69,4 +77,26 @@ $(".decrement").click((event) => {
     amount > 0 ? amount - 1 : amount
   )
   render(state)
+})
+
+$(".yellow-button").click(() => {
+  if (
+    state.lemonJuice.amount ||
+    state.water.amount ||
+    state.sugar.amount ||
+    state.ice.amount
+  ) {
+    order.lemonades.push(state)
+    order.total += 1
+    state = initialState
+    render(state)
+    console.log(order)
+  } else {
+    $("#lemonadeError").removeClass("hidden")
+  }
+})
+
+$("#checkout").click(() => {
+  localStorage.setItem("order", JSON.stringify(order))
+  window.location = "./cart.html"
 })

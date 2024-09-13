@@ -63,3 +63,12 @@ body {
 .yellow {
   color: #fff1aa
 }
+
+.error {
+  color: palevioletred;
+  font-size: 1.15em;
+}
+
+.hidden {
+  display: none;
+}
