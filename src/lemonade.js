@@ -25,6 +25,8 @@ let state = initialState
 
 const order = JSON.parse(localStorage.getItem("order"))
 
+console.log(order)
+
 const calcPercent = (amount, max, maxFill = 100) =>
   100 - (amount / max) * maxFill
 
@@ -44,7 +46,7 @@ const render = ({ lemonJuice, water, sugar, ice }) => {
   $("#iceBox").html(
     Array(ice.amount)
       .fill(undefined)
-      .map((_) => "<img class='ice' src='../img/ice.svg' alt='Ice Cube' />")
+      .map((_) => '<img class="ice" src="../img/ice.svg" alt="Ice Cube" />')
   )
   $("#lemonJuiceValue").html(lemonJuice.amount + " " + lemonJuice.measurement)
   $("#waterValue").html(water.amount + " " + water.measurement)
@@ -70,6 +72,7 @@ $(".increment").click((event) => {
     amount < max ? amount + 1 : amount
   )
   render(state)
+  $("#lemonadeError").addClass("hidden")
 })
 
 $(".decrement").click((event) => {
@@ -87,10 +90,8 @@ $(".yellow-button").click(() => {
     state.ice.amount
   ) {
     order.lemonades.push(state)
-    order.total += 1
     state = initialState
     render(state)
-    console.log(order)
   } else {
     $("#lemonadeError").removeClass("hidden")
   }
